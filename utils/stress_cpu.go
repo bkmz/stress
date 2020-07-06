@@ -1,4 +1,5 @@
 package utils
+
 import (
 	"time"
 	"os"
@@ -83,7 +84,7 @@ func runCpuMonitor(monitor *CpuLoadMonitor){
 	pid := os.Getpid()
 	process,_ := process.NewProcess(int32(pid))
 	for monitor.running{
-		monitor.sample, _ = process.CPUPercent(0)
+		monitor.sample, _ = process.CPUPercent()
 		monitor.cpu = monitor.alpha * monitor.sample + (1-monitor.alpha)*monitor.cpu
 		time.Sleep(monitor.samplingInterval)
 	}
