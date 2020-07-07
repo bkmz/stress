@@ -22,51 +22,6 @@ var (
 	chain alice.Chain
 )
 
-// func getCommands() [] cli.Command {
-// 	// global level flags
-// 	var cpuload float64
-// 	var duration float64
-// 	var cpucore int
-// 	var context *cli.Context
-// 	sampleInterval := 100 * time.Millisecond
-
-// 	cpuLoadFlags := []cli.Flag{
-// 		cli.Float64Flag{
-// 			Name:  "cpuload",
-// 			Usage: "Target CPU load 0<cpuload<1",
-// 			Value: 0.1,
-// 			Destination: &cpuload,
-// 		},
-// 		cli.Float64Flag{
-// 			Name:  "duration",
-// 			Usage: "Duration to run the stress app in Seconds",
-// 			Value: 10,
-// 			Destination: &duration,
-// 		},
-// 		cli.IntFlag{
-// 			Name:  "cpucore",
-// 			Usage: "Cpu core to stress ",
-// 			Value: 0,
-// 			Destination: &cpucore,
-// 		},
-
-// 	}
-// 	commands :=[]cli.Command{
-// 		{
-// 			Name: "cpu",
-// 			Action: func(c *cli.Context) {
-// 				context = c
-// 				runCpuLoader(sampleInterval, cpuload, duration, cpucore)
-// 			},
-// 			Usage: "load cpu , use --help for more options",
-// 			Flags: cpuLoadFlags,
-// 			Before: func(_ *cli.Context) error { return nil },
-// 		},
-
-// 	}
-// 	return commands
-// }
-
 func runCpuLoader(sampleInterval time.Duration, cpuload float64, duration float64, cpu int) {
 	log.Info().Msg("Start CPU load")
 	controller := utils.NewCpuLoadController(sampleInterval, cpuload)
@@ -145,7 +100,7 @@ func CPULoad(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	
-	sampleInterval := 10 * time.Millisecond
+	sampleInterval := 1000 * time.Millisecond
 
 	go runCpuLoader(sampleInterval, cpuload, duration, cpucore)
 }
